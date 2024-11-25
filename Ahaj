@@ -1,0 +1,32 @@
+class Node:
+    def __init__(self, data):
+        self.left = None
+        self.right = None
+        self.data = data
+
+def plus_minus(root):
+    if not root:
+        return 0
+
+    # Hitung nilai plus-minus subtree kiri dan kanan
+    left_sum = plus_minus(root.left)
+    right_sum = plus_minus(root.right)
+
+    # Hitung nilai plus-minus node saat ini
+    return root.data if root.data % 2 == 0 else -root.data + left_sum + right_sum
+
+def find_deepest_leaf(root):
+    if not root:
+        return -1
+
+    # Hitung kedalaman subtree kiri dan kanan
+    left_depth = find_deepest_leaf(root.left)
+    right_depth = find_deepest_leaf(root.right)
+
+    # Kembalikan kedalaman maksimum + 1
+    return max(left_depth, right_depth) + 1
+
+# Contoh penggunaan
+root = generate_tree(840)  # Asumsikan generate_tree sudah didefinisikan
+print(f"Hasil plus minus = {plus_minus(root)}")
+print(f"Leaf paling dalam = {find_deepest_leaf(root)}")
